@@ -1,0 +1,32 @@
+.customers {
+  width: 30%;
+  float: left;
+  position: relative;
+  padding-left:20px;
+
+}
+
+.content {
+  padding: 15px 0 15px 90px;
+  font-size: 37px;
+}
+
+.title {
+  font-size: 22px;
+}
+
+.icon {
+  display: inline-block;
+  float: left;
+  padding-top: 7.5px;
+}
+@include media('zerro','sm-tablet'){
+  .cell{
+    width:100%;
+  }
+  .customers{
+    margin-top:20px;
+    width:auto;
+    padding:0;
+  }
+}

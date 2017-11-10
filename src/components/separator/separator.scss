@@ -1,0 +1,15 @@
+
+
+$list:'./img/1.jpg','./img/2.jpg','./img/3.jpg';
+
+
+.wrapper {
+  padding:6.45vw 0;
+
+}
+
+@for $i from 1 through 3{
+  .item-#{$i}{
+      background: url('./img/#{$i}.jpg') 0 0 / cover no-repeat;
+  }
+}

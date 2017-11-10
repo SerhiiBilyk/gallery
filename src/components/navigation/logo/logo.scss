@@ -1,0 +1,18 @@
+.logo {
+  width: 40%;
+  float: left;
+//  border: 2px solid white;
+  color: transparent;
+
+@include navigation-height-fix;
+font-size:0;
+
+  img{
+    float:left;
+    width:100%;
+    max-width:100px;
+  }
+}
+.point{
+
+}

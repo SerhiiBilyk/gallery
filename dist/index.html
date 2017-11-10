@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>webpack demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="preload" href="app.js" as="script">
+
+  <link rel='stylesheet' href='style.css' />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--
+  <script async src="https://use.fontawesome.com/d6a1d46436.js"></script>
+  <link href="https://use.fontawesome.com/d6a1d46436.css" media="all" rel="stylesheet">
+-->
+</head>
+
+<body>
+
+  <script type="text/javascript">
+  setTimeout(function() {
+    var documentFragment = document.createDocumentFragment();
+
+    var css = document.createElement('link');
+    css.href = 'https://use.fontawesome.com/d6a1d46436.css';
+    css.rel = 'stylesheet';
+    css.type = 'text/css';
+
+    var script = document.createElement('script');
+    script.src = 'https://use.fontawesome.com/d6a1d46436.js';
+    script.async = true;
+
+    var script2=document.createElement('script');
+    script2.src = 'app.js';
+    script2.type = "text/javascript";
+
+
+var body=document.documentElement||document.body;
+      body.appendChild(script2);
+
+
+
+    documentFragment.appendChild(css);
+    documentFragment.appendChild(script);
+
+
+    document.getElementsByTagName('head')[0].appendChild(documentFragment);
+
+
+
+  },0)
+
+  </script>
+
+
+  <!--
+  http://www.templatemonsterpreview.com/65331.html
+  -->
+</body>
+
+</html>

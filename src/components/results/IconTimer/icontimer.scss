@@ -1,0 +1,44 @@
+.cell {
+  width: 33.3333%;
+  float: left;
+//  border: 1px solid white;
+  padding: 20px;
+  position:relative;
+  overflow:hidden;
+}
+
+.content {
+  float: left;
+}
+.icon{
+  position:absolute;
+}
+
+.content {
+  padding-left: 90px;
+    right:0;
+}
+
+.timer {
+  font-size: 37px;
+}
+
+.header {
+  font-size: 22px;
+}
+@include media ('zerro','sm-tablet') {
+  .cell {
+    width: 100%;
+  }
+  .content{
+    p{
+      text-align:left;
+    }
+  }
+}
+@include media ('sm-tablet','md-tablet') {
+  .cell {
+    padding:20px 0;
+  }
+
+}

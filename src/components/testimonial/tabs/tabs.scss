@@ -1,0 +1,107 @@
+.tabs {
+  border-top: 2px #e3e3e3 solid;
+  @include clearfix;
+  padding-top:40px;
+  margin-top:25px;
+
+
+}
+
+.tech {
+  width: 15%;
+  display: inline-block;
+  float: left;
+
+}
+
+.type {
+  text-align: right;
+  position: relative;
+
+  button {
+    background-color: transparent;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 15px;
+    border: 2px #e3e3e3 solid;
+    position: relative;
+    right: -2px;
+    width:inherit;
+    transition:color 1s ease;
+    &:hover{
+          color:#2f2f2f;
+    }
+
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.active {
+  &::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    width: 10px;
+    border-right: 2px solid white;
+    top: 0;
+    right: -2px;
+  }
+}
+
+.none {
+  width: auto;
+  color:#999999;
+}
+@keyframes anim {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.description {
+  width: 55%;
+  display: inline-block;
+  float: left;
+  border-left: 2px solid #e3e3e3;
+  padding-left: 15px;
+  font-size: 13px;
+  line-height: 22px;
+
+}
+
+
+.visible {
+  display: block;
+  animation-name: anim;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.hide {
+  display: none;
+}
+@include media('zerro','sm-tablet'){
+  .tech,.type,.description{
+    width:100%;
+  }
+  .description{
+    padding:15px 0 0 0;
+    border:none;
+
+  }
+  .active{
+    color:#2f2f2f;
+    &::after{
+      display:none;
+    }
+  }
+}

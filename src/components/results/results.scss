@@ -1,0 +1,24 @@
+.results {
+  color: red;
+  //border: 1px solid red;
+
+  padding: 100px 0;
+  background-image: url('./img/home.jpg');
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.row {
+  width: 100%;
+  @include clearfix;
+  color: white;
+  text-align: center;
+}
+
+
+.text{
+  line-height:22px;
+  font-size:13px;
+  text-align:center;
+  margin:20px 0;
+}

@@ -1,0 +1,45 @@
+.copyright {
+
+  z-index: 10;
+  position: relative;
+  @include clearfix;
+  padding:35px 0;
+
+}
+
+.left {
+  width: 50%;
+  float: left;
+  color: #2f2f2f;
+  font-size: 13px;
+  text-align:left;
+}
+
+.right {
+  width: 50%;
+  float: left;
+  color: #2f2f2f;
+  font-size: 13px;
+  text-align:right;
+}
+
+.navItem {
+  display: inline-block;
+  margin:0 10px;
+  &:hover{
+    cursor:pointer;
+    color:#00ccff;
+  }
+}
+.navigation{
+  display:inline-block;
+}
+
+
+@include media ('zerro','md-tablet') {
+  .left,
+  .right {
+    text-align:center;
+    width:100%;
+  }
+}

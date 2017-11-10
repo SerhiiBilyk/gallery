@@ -1,0 +1,47 @@
+.wrapper {
+  //border: 1px solid red;
+  //height:800px;
+  padding-top: 50px;
+  padding-bottom: 6.45vw;
+  background: url('./img/about_bg.jpg') 0 0 / cover no-repeat;
+}
+
+.container {
+  width: 25%;
+  float: left;
+  border: 15px solid transparent;
+}
+
+.name {
+  margin-top: 9px;
+}
+
+.position {
+  margin-bottom: 9px;
+}
+
+.description,
+.name,
+.position {
+  color: white;
+  text-align: center;
+}
+
+.description,
+.position {
+  font-size: 13px;
+  color: #b9b9b9;
+  line-height: 22px;
+}
+@include media ('zerro','md-phone') {
+  .container {
+    width: 100%;
+  }
+}
+
+
+@include media ('md-phone','sm-tablet') {
+  .container {
+    width: 50%;
+  }
+}

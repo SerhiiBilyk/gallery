@@ -1,0 +1,24 @@
+.wrapper{
+  position:absolute;
+  right:10px;
+  transform-origin:center;
+  transition:all 1s ease;
+  transform:rotate(0);
+
+}
+.up{
+  color:black;
+  transform:rotate(0deg);
+    transition:all 1s ease;
+
+}
+.down{
+  transform:rotate(180deg);
+    transition:all 1s ease;
+  color:white;
+}
+@media(min-width:1025px){
+  .wrapper{
+    display:none;
+  }
+}

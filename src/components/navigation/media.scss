@@ -1,0 +1,8 @@
+@import '../../style/mixin.scss';
+
+
+@include media('zerro','md-tablet'){  
+    .bar{
+      text-align:right;
+    }
+}

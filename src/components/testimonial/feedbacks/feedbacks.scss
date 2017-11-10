@@ -1,0 +1,142 @@
+
+.feedbacks {
+  @include clearfix;
+}
+
+.content {
+  color: black;
+  position: relative;
+  margin-left: 50px;
+}
+
+.cell {
+  width: 50%;
+  float:left;
+  display:inline-block;
+  font-size: 0;
+  position: relative;
+  margin-bottom:20px;
+
+  &:nth-child(odd) {
+    .img{
+      right:15%;
+      transform:translateX(42px);
+    }
+    .content {
+      padding-right: 30%;
+      text-align: right;
+    }
+  }
+
+  &:nth-child(even) {
+    .img{
+      left:15%;
+      transform:translateX(8px);
+    }
+    .content {
+      padding-left: 30%;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 2px;
+      top: 42px;
+      background: #e3e3e3;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 2px;
+      top: 42px;
+      background: #e3e3e3;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.img {
+  position: absolute;
+  top: 0;
+  border-radius: 100px;
+}
+
+.info {
+  font-size: 15px;
+  margin-bottom: 8px;
+  line-height: 24px;
+  font-weight: 300;
+  display: inline-block;
+  position: relative;
+  color:#2f2f2f;
+}
+
+.name {
+  font-size: 14px;
+  margin-right:5px;
+}
+
+.company {
+  font-size: 14px;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.description {
+  font-size: 13px;
+  line-height:22px;
+  color: #666666;
+}
+@include media('zerro','md-phone'){
+  .cell:nth-child(1n){
+    width:100%;
+    float:none;
+    padding:0;
+    margin:0;
+    margin-bottom:10px;
+    min-height:100px;
+    &::before,&::after{
+      display:none;
+    }
+    .img{
+      left:0;
+      transform:none;
+    }
+    .content{
+      padding:0;
+      padding-left:100px;
+      text-align:left;
+      margin:0;
+    }
+  }
+
+}
+@include media('md-phone','md-tablet'){
+
+  .cell:nth-child(1n){
+    width:100%;
+    float:none;
+    padding:0;
+    margin:0;
+    margin-bottom:15px;
+    min-height:100px;
+    &::before,&::after{
+      display:none;
+    }
+    .img{
+      left:0;
+      transform:none;
+      transform:translateX(50px);
+    }
+    .content{
+      padding:0;
+      padding-left:100px;
+      text-align:left;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.partners{
+  height:6.45vw;
+  line-height:6.45vw;
+  z-index:100;
+  position:relative;
+}
+ul{
+  //text-align:center;
+}
+.cell{
+  width:16.6666%;
+  display:inline-block;
+  font-size:0;
+//  border:1px solid black;
+}
+.img{
+  width:100%;
+      text-align:center;
+}
+@include media('zerro','md-phone'){
+  .partners{
+    height:auto;
+    line-height:normal;
+  }
+    .cell{
+      padding:15px;
+      width:100%;
+      text-align:center;
+    }
+}
+@include media('md-phone','sm-tablet'){
+  .partners{
+    height:auto;
+    line-height:normal;
+  }
+    .cell{
+      width:50%;
+    }
+}
+@include media('sm-tablet','md-tablet'){
+  .partners{
+    height:auto;
+    line-height:normal;
+  }
+    .cell{
+      width:33.3333%;
+    }
+}

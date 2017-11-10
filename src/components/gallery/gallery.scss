@@ -1,0 +1,51 @@
+.wrapper {
+  width:auto;
+  //padding-top:6.45vw;
+
+}
+
+.gallery {
+  width: 33.333%;
+  float: left;
+  padding: 20px;
+  display: inline-block;
+  position: relative;
+  font-size:16px;
+  @include linkReset{
+    color:white;
+  }
+}
+
+.content {
+
+  padding-bottom: 6.45vw;
+  @include clearfix;
+  font-size:0;
+}
+
+.title {
+  color: black;
+  margin-top: 20px;
+  text-align: center;
+}
+
+
+@include media ('zerro','md-phone') {
+  .gallery {
+    width: 100%;
+    float: none;
+  }
+  .title{
+    font-size:15px;
+  }
+}
+
+
+@include media ('md-phone','sm-tablet') {
+  .gallery {
+    width: 50%;
+  }
+  .title{
+    font-size:14px;
+  }
+}
