@@ -7,9 +7,6 @@ import Header from '../../components/header/header.jsx';
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      show: false
-    }
   }
   handleClick() {
     this.setState({show: true})
@@ -17,10 +14,7 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={(e) => this.handleClick()}>Click</button>
-        {this.state.show
-          ? <Header/>
-          : null}
+       <Header/>      
       </div>
     )
   }

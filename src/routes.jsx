@@ -3,13 +3,6 @@ import ReactDOM from 'react-dom';
 import {HashRouter as Router,Route,Link,Switch} from 'react-router-dom';
 import HomePage from './containers/HomePage/HomePage.jsx';
 
-
-
-/**
- * TODO
- * link blob appear, fix IT
- */
-
 class About extends React.PureComponent {
   constructor(props) {
     super(props);

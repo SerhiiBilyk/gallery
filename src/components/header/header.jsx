@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CSSModules from 'react-css-modules';
 import styles from './header.scss';
+import FileInput from './FileInput/FileInput.jsx';
 
 
 class Header extends React.PureComponent {
@@ -12,7 +13,8 @@ class Header extends React.PureComponent {
   render() {
     return (
       <div styleName='header'>
-        <a href='#/about'>Test</a>
+        <FileInput/>
+
       </div>
     )
   }

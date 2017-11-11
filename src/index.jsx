@@ -1,14 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.scss';
-import Header from './components/header/header.jsx';
 import Main from './routes.jsx';
-
-
-
-
-
-
 import {HashRouter as Router, Route, Link, Switch} from 'react-router-dom';
 
 
@@ -33,7 +26,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>    
+      <div>
         <Main/>
       </div>
     )
@@ -45,16 +38,3 @@ ReactDOM.render((
     <App/>
   </Router>
 ), element);
-
-function images() {
-  console.log('images')
-  var img = [].slice.call(document.querySelectorAll('[data-lazy]'));
-  img.forEach((elem, index) => {
-    elem.onload = function() {
-
-    }
-  })
-}
-
-
-var result = images();
