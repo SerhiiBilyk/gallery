@@ -9,7 +9,8 @@ var APP_DIR = path.resolve(__dirname, './src');
 module.exports = merge(common, {
 
   entry:{
-     about: [APP_DIR + '/containers/About/About.jsx']
+     about: [APP_DIR + '/containers/About/About.jsx'],
+
    },
   output:{
     filename:'[name].prod.app.js',
@@ -38,7 +39,11 @@ module.exports = merge(common, {
         }
       },
       canPrint: true
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin(
+      {
+        name: 'common'
+      })
 
   ]
 })

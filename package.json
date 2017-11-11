@@ -1,8 +1,8 @@
 {
-  "name": "skew",
+  "name": "gallery",
   "version": "1.0.0",
   "description": "just simple RWD page",
-  "main": "./src/index.js",
+  "main": "./src/index.jsx",
   "scripts": {
     "test": "jest",
     "testing": "nodemon --watch  -e jsx  --exec \"npm  test \" ",

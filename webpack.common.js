@@ -7,7 +7,6 @@ const pkg = require('./package.json');
 
 module.exports = {
   entry: {
-
     main: [
       "babel-polyfill", APP_DIR + '/index.jsx'
     ]
@@ -15,7 +14,7 @@ module.exports = {
   output: {
     path: BUILD_DIR,
     filename: '[name].app.js',
-    chunkFilename:'[name].js'
+    chunkFilename:'[name].bundle.js'
   },
   devtool: 'inline-source-map',
   module: {
@@ -87,13 +86,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [new ExtractTextPlugin("style.css"),
-   new webpack.optimize.CommonsChunkPlugin(
-     {
-       name: 'common',
-       children:true,
-       async:true,
-       minChunks:2
-     })
+  plugins: [new ExtractTextPlugin("style.css")
    ]
 }
