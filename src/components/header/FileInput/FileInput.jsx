@@ -11,14 +11,16 @@ class FileInput extends React.Component {
     super(props);
     this.state = {
       images: [],
-      show:[]
+      filtered: [],
+      id: 0,
+      search: false
+
     }
     this.fileHandler = this.fileHandler.bind(this)
     this.dragenter = this.dragenter.bind(this)
     this.dragover = this.dragover.bind(this)
     this.drop = this.drop.bind(this)
   }
-
 
   dragenter(e) {
 
@@ -48,70 +50,87 @@ class FileInput extends React.Component {
 
       var reader = new FileReader();
       reader.onloadend = () => {
+        console.log('reader loadend')
         this.setState((prevState) => {
           return {
             images: [
               ...prevState.images, {
                 file: elem,
-                url: reader.result
+                url: reader.result,
+                id: prevState.id
               }
             ],
-            show:[]
+            filtered: [],
+            search: false
           };
         }, this.showState);
       }
       reader.readAsDataURL(elem);
+
     });
   }
   showState() {
-    console.log('showSTate',this.state)
-  }
-  toSort() {
-    /*
-    https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript
-    */
-    var sorted = this.state.images;
-    sorted.sort(function(a, b) {
-      return a.file.size - b.file.size
+    console.log('sorted !!!')
+    this.setState(prevState => {
+      id : prevState.id++
     })
 
+  }
+
+  searchImg(e) {
+    e.persist();
+    setTimeout(() => {
+      var value = e.target.value;
+      var regexp = new RegExp(value + '.', 'gi');
+      var start = performance.now();
+      var filtered = this.state.images.filter(elem => elem.file.name.match(regexp));
+      var end = performance.now();
+
+      this.setState({filtered: filtered, search: true})
+      console.log('state', this.state)
+    }, 0)
+  }
+  handleSelect(e) {
+      e.persist();
+          setTimeout(() => {
+    var sortBy = e.target.value;
+
+    var sorted = this.state.images;
+    //  sorted.sort((a, b) => a.file[sortBy] - b.file[sortBy])
+
+    sorted.sort(  function compare(a, b) {
+        if (a.file[sortBy]  < b.file[sortBy] ) {
+          return -1;
+        }
+        if (a.file[sortBy]  > b.file[sortBy] ) {
+          return 1;
+        }
+        // a должно быть равным b
+        return 0;
+      })
     this.setState({
       images: sorted
     }, this.showState)
-
-  }
-  searchImg(e){
-    var value=e.target.value;
-
-    var regexp=new RegExp(value+'.','gi');
-    console.log(regexp)
-    var search=[...this.state.images];
-    var filtered=search.filter(elem=>{
-      console.log(elem)
-      if(elem.file.name.match(regexp)){
-              return  true
-      }
-    })
-    console.log('after find',filtered,'state',this.state.images)
-    this.setState({
-        show:filtered
-    },this.showState)
-
-
-
+  },0)
 
   }
 
   render() {
-
     return (
       <div styleName='input'>
         <div styleName='dropbox' ref={dropbox => this.dropbox = dropbox} onDragEnter={this.dragenter} onDragOver={this.dragover} onDrop={this.drop}></div>
         <input type="file" id="files" name="files[]" multiple onChange={this.fileHandler}/>
-        <button onClick={e => this.toSort()}>sort</button>
-        <input type='text' onChange={e=>this.searchImg(e)} />
-        <List images={this.state.images} filtered={this.state.show}/>
+        <select onChange={e => this.handleSelect(e)}>
+          <option value="name">name</option>
+          <option value="size">size</option>
+          <option value="width">width</option>
+          <option value="height">height</option>
+        </select>
 
+        <input type='text' onChange={e => this.searchImg(e)}/>
+        <List images={this.state.search
+          ? this.state.filtered
+          : this.state.images} filter={this.state.filtered}/>
       </div>
     )
   }
