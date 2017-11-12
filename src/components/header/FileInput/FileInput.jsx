@@ -20,6 +20,7 @@ class FileInput extends React.Component {
     this.dragenter = this.dragenter.bind(this)
     this.dragover = this.dragover.bind(this)
     this.drop = this.drop.bind(this)
+    this.setSize=this.setSize.bind(this)
   }
 
   dragenter(e) {
@@ -50,7 +51,7 @@ class FileInput extends React.Component {
 
       var reader = new FileReader();
       reader.onloadend = () => {
-        console.log('reader loadend')
+
         this.setState((prevState) => {
           return {
             images: [
@@ -63,17 +64,20 @@ class FileInput extends React.Component {
             filtered: [],
             search: false
           };
-        }, this.showState);
+        }, this.idIncrement);
       }
       reader.readAsDataURL(elem);
 
     });
   }
-  showState() {
-    console.log('sorted !!!')
+  idIncrement(){
     this.setState(prevState => {
       id : prevState.id++
     })
+  }
+  showState() {
+    console.log('sorted !!!',this.state)
+
 
   }
 
@@ -86,33 +90,54 @@ class FileInput extends React.Component {
       var filtered = this.state.images.filter(elem => elem.file.name.match(regexp));
       var end = performance.now();
 
-      this.setState({filtered: filtered, search: true})
+      this.setState({filtered: filtered, search: !!value})
       console.log('state', this.state)
     }, 0)
   }
   handleSelect(e) {
-      e.persist();
-          setTimeout(() => {
-    var sortBy = e.target.value;
+    e.persist();
+    setTimeout(() => {
+      var sortBy = e.target.value;
 
-    var sorted = this.state.images;
-    //  sorted.sort((a, b) => a.file[sortBy] - b.file[sortBy])
+      var sorted = this.state.images;
+      var sort = {
+        'size': function(a, b) {
+          return a.file[sortBy] - b.file[sortBy]
+        },
+        'name': function(a, b) {
+          if (a.file[sortBy] < b.file[sortBy]) {
+            return -1;
+          }
+          if (a.file[sortBy] > b.file[sortBy]) {
+            return 1;
+          }
+          return 0;
+        },
+        'width':function(a, b) {
+          return a.file.size[sortBy] - b.file.size[sortBy]
+        },
+        'height':function(a, b) {
+          console.log('a',a)
+          return a.file.size[sortBy] - b.file.size[sortBy]
+        },
+      }
 
-    sorted.sort(  function compare(a, b) {
-        if (a.file[sortBy]  < b.file[sortBy] ) {
-          return -1;
-        }
-        if (a.file[sortBy]  > b.file[sortBy] ) {
-          return 1;
-        }
-        // a должно быть равным b
-        return 0;
-      })
+      sorted.sort(sort[sortBy])
+      this.setState({
+        images: sorted
+      }, this.showState)
+    }, 0)
+
+  }
+  setSize(size,id){
+
+    var updated=[...this.state.images]
+    console.log('updated',updated)
+    updated[id].size=size;
     this.setState({
-      images: sorted
-    }, this.showState)
-  },0)
-
+      images:updated
+    },this.showState)
+    console.log(123,this.state.images)
   }
 
   render() {
@@ -130,7 +155,7 @@ class FileInput extends React.Component {
         <input type='text' onChange={e => this.searchImg(e)}/>
         <List images={this.state.search
           ? this.state.filtered
-          : this.state.images} filter={this.state.filtered}/>
+          : this.state.images} filter={this.state.filtered} size={this.setSize}/>
       </div>
     )
   }

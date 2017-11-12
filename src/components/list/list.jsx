@@ -18,7 +18,7 @@ class List extends React.Component {
     var toRender=this.props.images.length > 0 ? this.props.images.map((elem, index) => {
         return (
           <li styleName='cell' key={index}>
-            <Img src={elem.url}/>
+            <Img src={elem.url} size={this.props.size}/>
             <p>{elem.file.name}</p>
             <p>{elem.file.size}</p>
           </li>

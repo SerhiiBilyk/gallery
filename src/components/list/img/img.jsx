@@ -21,6 +21,8 @@ class Img extends React.Component {
     },this.showState)
   }
   showState(){
+    console.log('show state')
+    this.props.size(this.state.size,0)
 
   }
   render() {
@@ -32,6 +34,8 @@ class Img extends React.Component {
             src={this.props.src}
             onLoad={e=>this.imgLoaded(e)}
           />
+          <span>{this.state.size && this.state.size.width}</span>
+          <span>{this.state.size && this.state.size.height}</span>
       </div>
     )
   }
