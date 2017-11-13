@@ -10,6 +10,13 @@ class Img extends React.PureComponent {
       rect:null
     }
   }
+  lightBox(){
+    this.setState(prevState=>{
+      return{
+        active:!prevState.active
+      }
+    })
+  }
 
   imgLoaded(e){
     this.setState({
@@ -26,7 +33,7 @@ class Img extends React.PureComponent {
   render() {
     console.log('IMG render',this.props.iterator)
     return (
-      <div styleName='img'>
+      <div styleName={`img `} onClick={e=>this.lightBox()}>
           <img
             ref={img=>this.img=img}
             styleName='img'

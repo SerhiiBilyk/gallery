@@ -1,84 +1,128 @@
 .list {
   width: 90%;
-  @include clearfix;
   margin: 0 auto;
+
+  ul {
+    @include clearfix;
+  }
 }
+@keyframes reverse{
+  0%{
+    position:relative;
+  }
+  100%{
+      transform:rotate(360deg);
+  }
+
+}
+
+
+
 
 .cell {
   width: 10vw; //  width:100px;
-  height:10vw;
-
+  height: 10vw;
+  background-color: rgba(10,10,10,0.06);
   display: inline-block;
   float: left;
-  padding: 1px;
-  border:1px solid black;
-  position:relative;
+  padding: 2px;
+
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px gray;
+
 
 }
 
-
 .content {
-height:6vw;
+  height: 6vw;
   display: inline-block;
+  width: 100%;
+  min-width:30px;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+    position: relative;
+    transition:all 1s ease;
 
+  &.disable{
+    font-weight:normal;
+
+  }
+  &.active{
+    position:absolute;
+    width:100vw;
+
+    right:0;
+  height:100vh;
+    float:none;
+    border:5px solid white;
+    top:0;
+    left:0;
     width:100%;
 
+    transform:rotate(360deg);
+    &::after{
+      content:'x';
+      color:gray;
+      font-size:20px;
+
+      border:2px solid gray;
+      text-align:center;
+      width:40px;
+      height:40px;
+      position:absolute;
+      top:0;
+      right:0;
+      line-height:40px;
+      background-color:white;
+
+
+    }
+
+    img{
+      width:100%;
+      height:100%;
+    }
+
+  }
 }
 
 .description {
   font-size: 0.9vw;
   width: 100%;
-  height:4vw;
+  height: 4vw;
+  bottom: 0;
+}
+@mixin RWD($width,$font) {
+  .cell {
+    width: unquote($width+'%');
+    height: unquote($width+'vw');
+  }
 
+  .content {
+    height: unquote((($width / 100) * 60)+'vw');
+  }
 
-//  position:absolute;
-  bottom:0;
+  .description {
+    max-height: unquote((($width / 100) * 400)+'vw');
+    height: auto;
+    font-size: unquote($font + 'vw');
+  }
+}
+@include media ('zerro','sm-phone') {
+@include RWD(100,6);
+}
+@include media ('sm-phone','md-phone') {
+@include RWD(50,3.5);
 }
 @include media ('md-phone','lg-phone') {
-.cell {
-width:25%;
-height:25vw;
+@include RWD(33.3333,2);
 }
 
-.content {
-height:15vw;
-}
-
-.description {
-  max-height: 10vw;
-  height:auto;
-  font-size: 2vw;
-}
-}
 @include media ('lg-phone','sm-tablet') {
-.cell {
-width:25%;
-height:25vw;
-}
-
-.content {
-height:15vw;
-}
-
-.description {
-  max-height: 10vw;
-  height:auto;
-  font-size: 2vw;
-}
+@include RWD(25,2);
 }
 @include media ('sm-tablet','md-tablet') {
-.cell {
-  width: 20%;
-  height: 20vw;
-}
-
-.content {
-  height: 12vw;
-}
-
-.description {
-  max-height: 8vw;
-  height:auto;
-  font-size: 1.5vw;
-}
+@include RWD(20,1.5);
 }

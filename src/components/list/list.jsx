@@ -7,6 +7,19 @@ import Img from './img/img.jsx';
 class List extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      active:false,
+      index:null
+    }
+  }
+  lightBox(index){
+    console.log('index',index)
+    this.setState(prevState=>{
+      return{
+        active:!prevState.active,
+        index:index
+      }
+    })
   }
 
 
@@ -20,11 +33,11 @@ class List extends React.Component {
       ? this.props.images.map((elem, index) => {
 
         return (
-          <li styleName='cell' key={index}>
-            <div styleName='content'>
+          <li styleName={`cell  `} key={index} onClick={e=>this.lightBox(index)}>
+            <div styleName={`content ${this.state.index===index&&this.state.active?'active':'disable'}`} >
               <Img src={elem.url} rect={this.props.rect} iterator={index}/>
             </div>
-            <div styleName='description'>            
+            <div styleName='description'>
               <p>{format(elem.file.name)}</p>
               <p>Kb:{elem.file.size/1000}</p>
               <p>W:{elem.rect && elem.rect.width}</p>
