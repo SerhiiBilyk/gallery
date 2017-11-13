@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import CSSModules from 'react-css-modules';
 import styles from './fileInput.scss';
 import List from '../../list/list.jsx';
+import Progress from '../progress/progress.jsx';
 /*
 sorted by size does not work
 */
@@ -13,21 +14,29 @@ class FileInput extends React.Component {
       images: [],
       filtered: [],
       id: 0,
-      search: false
+      search: false,
+      dropbox:false,
+      loading: {
+        show: false,
+        progress: 0
+      }
 
     }
     this.fileHandler = this.fileHandler.bind(this)
     this.dragenter = this.dragenter.bind(this)
     this.dragover = this.dragover.bind(this)
+    this.dragLeave = this.dragLeave.bind(this)
     this.drop = this.drop.bind(this)
-    this.setRect=this.setRect.bind(this)
+    this.setRect = this.setRect.bind(this)
   }
-  shouldComponentUpdate(nextProps,nextState){
+  shouldComponentUpdate(nextProps, nextState) {
     return true;
   }
 
-  dragenter(e) {
-
+  dragenter(e){
+    this.setState({
+      dropbox:true
+    })
     e.stopPropagation();
     e.preventDefault();
   }
@@ -35,8 +44,17 @@ class FileInput extends React.Component {
   dragover(e) {
     e.stopPropagation();
     e.preventDefault();
+
+  }
+  dragLeave(){
+    this.setState({
+      dropbox:false
+    })
   }
   drop(e) {
+    this.setState({
+      dropbox:false
+    })
     e.preventDefault();
 
     var dt = e.dataTransfer;
@@ -53,6 +71,15 @@ class FileInput extends React.Component {
     images.forEach((elem, index) => {
 
       var reader = new FileReader();
+      reader.onprogress = (evt) => {
+        var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+        this.setState({
+          loading: {
+            show: true,
+            progress: percentLoaded
+          }
+        })
+      }
       reader.onloadend = () => {
 
         this.setState((prevState) => {
@@ -65,7 +92,10 @@ class FileInput extends React.Component {
               }
             ],
             filtered: [],
-            search: false
+            search: false,
+            loading: {
+              show: false
+            }
           };
         }, this.idIncrement);
       }
@@ -73,87 +103,87 @@ class FileInput extends React.Component {
 
     });
   }
-  idIncrement(){
+  idIncrement() {
     this.setState(prevState => {
       id : prevState.id++
     })
   }
-  showState() {
-    console.log('FINAL STATE',this.state.images)
-  }
+  showState() {}
 
   searchImg(e) {
     e.persist();
     setTimeout(() => {
       var value = e.target.value;
-      var regexp = new RegExp(value , 'gi');
+      var regexp = new RegExp(value, 'gi');
 
-      var filtered = this.state.images.filter(elem =>{
-        console.log(elem.file.name,regexp, elem.file.name.match(regexp))
-        return  !!elem.file.name.match(regexp)
-       }
-       );
+      var filtered = this.state.images.filter(elem => {
+        return !!elem.file.name.match(regexp)
+      });
 
-
-      this.setState({filtered: filtered, search: !!value})
-      console.log('state', this.state)
+      this.setState({
+        filtered: filtered,
+        search: !!value
+      })
     }, 0)
   }
   handleSelect(e) {
 
-      var sortBy = e.target.value.split(' ');
-      console.log('sortBy',sortBy)
-      var sorted = this.state.images;
-      var sort = {
-        'size': function(a, b) {
-          console.log('size sort')
-          return a.file[sortBy[0]] - b.file[sortBy[0]]
-        },
-        'name': function(a, b) {
-          console.log('name sort')
-          if (a.file[sortBy[0]] < b.file[sortBy[0]]) {
-            return -1;
-          }
-          if (a.file[sortBy[0]] > b.file[sortBy[0]]) {
-            return 1;
-          }
-          return 0;
-        },
-        'rect':function(a, b) {
-          console.log('width sort',sortBy[1])
-          return a.rect[sortBy[1]] - b.rect[sortBy[1]]
+    var sortBy = e.target.value.split(' ');
+    var sort = {
+      'size': function(a, b) {
+        return a.file[sortBy[0]] - b.file[sortBy[0]]
+      },
+      'name': function(a, b) {
+        if (a.file[sortBy[0]] < b.file[sortBy[0]]) {
+          return -1;
         }
+        if (a.file[sortBy[0]] > b.file[sortBy[0]]) {
+          return 1;
+        }
+        return 0;
+      },
+      'rect': function(a, b) {
+        return a.rect[sortBy[1]] - b.rect[sortBy[1]]
+      }
+    }
+
+    this.setState(prevState => {
+      return {
+        images: prevState.images.sort(sort[sortBy[0]])
       }
 
-      sorted.sort(sort[sortBy[0]])
-      console.log('sorted',sorted)
-      this.setState({
-        images: sorted
-      }, this.showState)
-
+    }, this.showState)
 
   }
-  setRect(rect,id){
-    var updated=[...this.state.images]
-    updated[id].rect=rect;
+  setRect(rect, id) {
+    var updated = [...this.state.images]
+    updated[id].rect = rect;
     this.setState({
-      images:updated
-    },this.showState)
+      images: updated
+    }, this.showState)
   }
 
   render() {
+    console.log('FILE-INPUT render')
     return (
       <div styleName='input'>
-        <div styleName='dropbox' ref={dropbox => this.dropbox = dropbox} onDragEnter={this.dragenter} onDragOver={this.dragover} onDrop={this.drop}></div>
+        <div styleName={`dropbox ${this.state.dropbox?'hover':'disabled'}`} ref={dropbox => this.dropbox = dropbox} onDragEnter={this.dragenter} onDragOver={this.dragover} onDrop={this.drop} onDragLeave={this.dragLeave}>
+          <i className={`fa fa-upload fa-5x`} aria-hidden="true"></i>
+        </div>
         <input type="file" id="files" name="files[]" multiple onChange={this.fileHandler}/>
+        <div>
+        <p styleName='sortBy'>Sort by:</p>
         <select onChange={e => this.handleSelect(e)}>
           <option value="name">name</option>
           <option value="size">size</option>
           <option value="rect width">width</option>
           <option value="rect height">height</option>
         </select>
-
-        <input type='text' onChange={e => this.searchImg(e)}/>
+      </div>
+        <Progress loading={this.state.loading}/>
+        <div styleName='search'>
+          <input placeholder='Search' type='text' onChange={e => this.searchImg(e)}/>
+        </div>
         <List images={this.state.search
           ? this.state.filtered
           : this.state.images} filter={this.state.filtered} rect={this.setRect}/>
@@ -162,4 +192,4 @@ class FileInput extends React.Component {
   }
 }
 
-export default CSSModules(FileInput, styles)
+export default CSSModules(FileInput, styles, {allowMultiple: true})

@@ -8,25 +8,32 @@ class List extends React.Component {
   constructor(props) {
     super(props);
   }
-  shouldComponentUpdate(nextProps,nextState){
-    return true;
-  }
 
 
   render() {
+    console.log('LIST render')
+    var format=function(str){
+      return str.length>10?`${str.substr(0,10)}...`:str
+    }
 
-    var toRender=this.props.images.length > 0 ? this.props.images.map((elem, index) => {
+    var toRender = this.props.images.length > 0
+      ? this.props.images.map((elem, index) => {
 
         return (
           <li styleName='cell' key={index}>
-            <Img src={elem.url} rect={this.props.rect} iterator={index}/>
-            <p>Name:{elem.file.name}</p>
-            <p>Size:{elem.file.size}</p>
-
-
+            <div styleName='content'>
+              <Img src={elem.url} rect={this.props.rect} iterator={index}/>
+            </div>
+            <div styleName='description'>            
+              <p>{format(elem.file.name)}</p>
+              <p>Kb:{elem.file.size/1000}</p>
+              <p>W:{elem.rect && elem.rect.width}</p>
+              <p>H:{elem.rect && elem.rect.height}</p>
+            </div>
           </li>
         )
-      }):null;
+      })
+      : null;
 
     return (
       <div styleName='list'>
