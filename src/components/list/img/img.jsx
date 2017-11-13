@@ -7,14 +7,16 @@ class Img extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      size:null
+      rect:null
     }
+  }
+  shouldComponentUpdate(nextProps,nextState){
+    return true;
   }
 
   imgLoaded(e){
-    console.log('image loaded')
     this.setState({
-      size:{
+      rect:{
         height:e.currentTarget.naturalHeight,
         width:e.currentTarget.naturalWidth
       }
@@ -22,7 +24,7 @@ class Img extends React.Component {
   }
   showState(){
     console.log('show state')
-    this.props.size(this.state.size,0)
+    this.props.rect(this.state.rect,this.props.iterator)
 
   }
   render() {
@@ -34,8 +36,8 @@ class Img extends React.Component {
             src={this.props.src}
             onLoad={e=>this.imgLoaded(e)}
           />
-          <span>{this.state.size && this.state.size.width}</span>
-          <span>{this.state.size && this.state.size.height}</span>
+          <p>IMG width{this.state.size && this.state.size.width}</p>
+          <p> img height{this.state.size && this.state.size.height}</p>
       </div>
     )
   }

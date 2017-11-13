@@ -16,11 +16,14 @@ class List extends React.Component {
   render() {
 
     var toRender=this.props.images.length > 0 ? this.props.images.map((elem, index) => {
+
         return (
           <li styleName='cell' key={index}>
-            <Img src={elem.url} size={this.props.size}/>
-            <p>{elem.file.name}</p>
-            <p>{elem.file.size}</p>
+            <Img src={elem.url} rect={this.props.rect} iterator={index}/>
+            <p>Name:{elem.file.name}</p>
+            <p>Size:{elem.file.size}</p>
+
+
           </li>
         )
       }):null;
