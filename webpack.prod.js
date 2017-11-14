@@ -10,6 +10,7 @@ module.exports = merge(common, {
 
   entry:{
      about: [APP_DIR + '/containers/About/About.jsx'],
+     common:['react','react-dom']
 
    },
   output:{
