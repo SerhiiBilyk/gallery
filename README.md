@@ -1,3 +1,3 @@
-# skew
-just other RWD page
-create 'dist' folder in root, because it in gitignore
+# Webpack 3 boiler plate
+React router,dynamic imports (lazy loading), separated dev/prod config, gzipped production...
+
