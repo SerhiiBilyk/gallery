@@ -9,7 +9,8 @@ var APP_DIR = path.resolve(__dirname, './src');
 module.exports = merge(common, {
 
   entry:{
-     about: [APP_DIR + '/containers/About/About.jsx']
+     about: [APP_DIR + '/containers/About/About.jsx'],
+     common:['react','react-dom']
 
    },
   output:{
