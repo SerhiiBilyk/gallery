@@ -21,7 +21,7 @@ import Header from '../../components/header/header.jsx';
         <button id='btn' styleName={this.state.test} onClick={(e) => this.handleClick()}>Click</button>
         <p>hello</p>
         {this.state.show
-          ? <Header/>
+          ? <Header theme='empty'/>
           : null}
       </div>
     )

@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 console.log('development mode')
 module.exports = merge(common, {
-  //devtool: 'inline-source-map',
+  //devtool: 'eval',
   devServer: {
     historyApiFallback: true,
     stats: {

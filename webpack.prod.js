@@ -4,17 +4,19 @@ const common = require('./webpack.common.js');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var CompressionPlugin = require('compression-webpack-plugin');
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 var APP_DIR = path.resolve(__dirname, './src');
 module.exports = merge(common, {
+  devtool: 'cheap-module-source-map',
 
-  entry:{
-     about: [APP_DIR + '/containers/About/About.jsx'],
-     common:['react','react-dom']
+  entry: {
 
-   },
-  output:{
-    filename:'[name].prod.app.js',
+    common: ['react', 'react-dom']
+
+  },
+  output: {
+    filename: '[name].prod.app.js',
     chunkFilename: '[name].bundle.js'
   },
   stats: {
@@ -41,10 +43,7 @@ module.exports = merge(common, {
       },
       canPrint: true
     }),
-    new webpack.optimize.CommonsChunkPlugin(
-      {
-        name: 'common'
-      })
-
+    new webpack.optimize.CommonsChunkPlugin({name: 'common'}),
+new BundleAnalyzerPlugin()
   ]
 })

@@ -16,7 +16,7 @@ module.exports = {
     filename: '[name].app.js',
     chunkFilename:'[name].bundle.js'
   },
-  devtool: 'inline-source-map',
+
   module: {
     rules: [
       {
@@ -31,18 +31,18 @@ module.exports = {
                 modules: true,
                 importLoaders: 3,
                 localIdentName: '[local]___[hash:base64:5]',
-                sourceMap: true,
+              //  sourceMap: true,
                 minimize: true
               }
             }, {
               loader: "postcss-loader",
               options: {
-                sourceMap: true
+              //  sourceMap: true
               }
             }, {
               loader: "sass-loader",
               options: {
-                sourceMap: true
+              //  sourceMap: true
               }
             }, {
               /*you don't need to import mixins inside each sass file
@@ -61,7 +61,13 @@ module.exports = {
         options:{
           name:'my-chunk'
         }
-      }, {
+      },{
+        test: /\.worker\.js$/,
+          include: APP_DIR,
+     use: { loader: 'worker-loader' },
+
+      },
+       {
         test: /\.(js|jsx)$/,
         include: APP_DIR,
         use: {
@@ -88,6 +94,10 @@ module.exports = {
       }
     ]
   },
-  plugins: [new ExtractTextPlugin("style.css")
+  plugins: [new ExtractTextPlugin({
+    filename:"style.css",
+    allChunks:true
+  }
+    )
    ]
 }
