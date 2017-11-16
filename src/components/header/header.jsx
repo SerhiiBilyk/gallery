@@ -4,22 +4,22 @@ import CSSModules from 'react-css-modules';
 import styles from './header.scss';
 import PropTypes from 'prop-types';
 import Worker from 'worker-loader!./worker';
+
 import {benchmark} from './benchmark.js';
 import {Map} from 'immutable';
 
-console.log('Immutable')
+
 var map1=Map({a:1,b:2});
 var map2=map1.set('b',10);
-console.log(map1.get('b'),map2.get('b'))
+
 const worker = new Worker();
-console.log(worker)
+
 class Header extends React.PureComponent {
   constructor(props) {
     super(props);
   }
   componentWillMount() {
     worker.addEventListener('message', e => {
-      console.log('EventListener message', e)
     })
   }
   componentDidMount() {}

@@ -15,11 +15,9 @@ class About extends React.PureComponent {
     super(props);
   }
   componentWillMount() {
-    console.log('Other compWillMount',this.props)
     return import (/* webpackChunkName: "About" */
     './containers/About/About.jsx').then(component => {
       this.Component = component;
-      console.log('this.Component', this.Component)
       this.forceUpdate();
     })
   }
@@ -34,15 +32,20 @@ class About extends React.PureComponent {
     )
   }
 }
+
 /**
  * Router prototype
  */
-export  const Main = () => (
-  <main>
+export  const Main = (props) => {
+  console.log('main props',props)
+  return (
     <Switch>
       <Route exact path='/' component={HomePage}/>
       <Route path='/about' component={About}/>
     </Switch>
-  </main>
-)
+  )
+}
+
+
+
 export default Main;

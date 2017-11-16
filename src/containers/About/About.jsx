@@ -12,7 +12,6 @@ import CSSModules from 'react-css-modules';
     super(props)
   }
   render(){
-    console.log('About')
     return(
       <div>
         <h1 styleName='about'>{'About'}</h1>
