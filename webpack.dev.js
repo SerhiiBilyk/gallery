@@ -3,6 +3,7 @@ const common = require('./webpack.common.js');
 const path = require('path');
 const webpack = require('webpack');
 
+
 console.log('development mode')
 module.exports = merge(common, {
   //devtool: 'eval',

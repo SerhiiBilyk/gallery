@@ -12,7 +12,7 @@ module.exports = merge(common, {
 
   entry: {
 
-    common: ['react', 'react-dom']
+    common: ['react', 'react-dom','immutable']
 
   },
   output: {

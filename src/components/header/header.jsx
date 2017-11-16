@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import CSSModules from 'react-css-modules';
 import styles from './header.scss';
 import PropTypes from 'prop-types';
-import Worker from 'worker-loader!./worker';
+import Worker from './worker.js';
 
 import {benchmark} from './benchmark.js';
-import {Map} from 'immutable';
+import {Map, List} from 'immutable';
 
+var map1 = Map({a: 1, b: 2});
+var map2 = map1.set('b', 10);
 
-var map1=Map({a:1,b:2});
-var map2=map1.set('b',10);
+var arr = Array(9000000).fill(0);
+var start = performance.now()
 
 const worker = new Worker();
 
@@ -20,19 +22,25 @@ class Header extends React.PureComponent {
   }
   componentWillMount() {
     worker.addEventListener('message', e => {
+      var end = performance.now();
+      var time=end-e.data[1]
+      console.log('Main script received message from worker','end time',time)
     })
   }
   componentDidMount() {}
   clickHandler(e) {
+    setTimeout(() => {
+      worker.postMessage([arr])
+    }, 0)
 
-    console.log('worker', worker)
-    worker.postMessage(['post message'])
     console.log('Message posted to worker')
-
   }
   withoutWorker() {
-    benchmark();
-
+    //  benchmark();
+    var start = performance.now()
+    var next = arr.map((elem, index) => elem + index)
+    var end = performance.now() - start
+    console.log(' end time', end)
   }
 
   render() {

@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: BUILD_DIR,
     filename: '[name].app.js',
-    chunkFilename:'[name].bundle.js'
+    chunkFilename: '[name].bundle.js'
   },
 
   module: {
@@ -31,18 +31,18 @@ module.exports = {
                 modules: true,
                 importLoaders: 3,
                 localIdentName: '[local]___[hash:base64:5]',
-              //  sourceMap: true,
+                //  sourceMap: true,
                 minimize: true
               }
             }, {
               loader: "postcss-loader",
               options: {
-              //  sourceMap: true
+                //  sourceMap: true
               }
             }, {
               loader: "sass-loader",
               options: {
-              //  sourceMap: true
+                //  sourceMap: true
               }
             }, {
               /*you don't need to import mixins inside each sass file
@@ -57,17 +57,20 @@ module.exports = {
         })
       }, {
         test: /\.bundle\.js$/,
-      loader: 'bundle-loader',
-        options:{
-          name:'my-chunk'
+        loader: 'bundle-loader',
+        options: {
+          name: 'my-chunk'
         }
-      },{
-        test: /\.worker\.js$/,
-          include: APP_DIR,
-     use: { loader: 'worker-loader' },
-
-      },
-       {
+      }, {
+        test: /\worker\.js$/,
+        include: APP_DIR,
+        use: {
+          loader: 'worker-loader',
+          options: {
+            name: '[id].worker'
+          }
+        }
+      }, {
         test: /\.(js|jsx)$/,
         include: APP_DIR,
         use: {
@@ -94,10 +97,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [new ExtractTextPlugin({
-    filename:"style.css",
-    allChunks:true
-  }
-    )
-   ]
+  plugins: [new ExtractTextPlugin({filename: "style.css", allChunks: true})]
 }
