@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules';
 import styles from './controls.scss';
 import PropTypes from 'prop-types';
 
-
+import {createStore} from 'redux';
 
 
 class Controls extends React.PureComponent {
@@ -15,10 +15,10 @@ class Controls extends React.PureComponent {
 
   render() {
     return (
-      <div styleName='header'>
+      <div styleName='controls'>
         <button id='click' onClick={e => this.clickHandler(e)}>With Worker</button>
         <button onClick={e => this.withoutWorker(e)}>Without worker</button>
-        <a href='#/about'>Test,theme{this.props.theme}</a>
+
       </div>
     )
   }
