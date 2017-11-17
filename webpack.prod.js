@@ -44,6 +44,9 @@ module.exports = merge(common, {
       canPrint: true
     }),
     new webpack.optimize.CommonsChunkPlugin({name: 'common'}),
+    /**
+     * turn OFF  BundleAnalyzerPlugin if you use preact
+     */
 new BundleAnalyzerPlugin()
   ]
 })

@@ -12,7 +12,7 @@ import Wrapper from '../../components/wrapper.js';
 
 
 
- class HomePage extends React.Component {
+export  class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,12 +25,14 @@ import Wrapper from '../../components/wrapper.js';
     this.props.addToCart('Ukrainian salo 5kg',5,1000)
   }
   render() {
+    
     var {cart}=this.props.cart.cart;
     var result=cart.map((elem,index)=>{
       return (
         <span key={index}>{elem.product}</span>
       )
     })
+
     return (
       <div>
         <button id='btn' styleName={this.state.test} onClick={(e) => this.handleClick()}>Click</button>

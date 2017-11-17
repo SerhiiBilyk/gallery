@@ -12,6 +12,8 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+    "transform":{".*":"<rootDir>node_modules/babel-jest"},
+
     "setupFiles": [
       "raf/polyfill"
     ],
@@ -21,7 +23,8 @@
     },
     "unmockedModulePathPatterns": [
       "node_modules/react/",
-      "node_modules/enzyme/"
+      "node_modules/enzyme/",
+      "node_modules/redux/"
     ],
     "collectCoverageFrom": [
       "./src/components/**/test/test.jsx",
