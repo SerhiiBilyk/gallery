@@ -2,7 +2,7 @@ import {ADD_TO_CART} from '../constans';
 
 
 
-const initialState = {
+export const initialState = {
   cart: [
     {
       product: 'bread 700g',
@@ -16,7 +16,7 @@ const initialState = {
     }
   ]
 }
-export const cartReducer = function(state=initialState, action) {
+ const cartReducer = function(state=initialState, action) {
   switch (action.type) {
     case ADD_TO_CART: {
       return {
@@ -24,8 +24,8 @@ export const cartReducer = function(state=initialState, action) {
         cart: [...state.cart, action.payload]
       }
     }
-
     default:
       return state;
   }
 }
+export default cartReducer;
