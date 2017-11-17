@@ -6,10 +6,7 @@ import PropTypes from 'prop-types';
 //import Worker from './worker.js';
 
 import {benchmark} from './benchmark.js';
-import {Map, List} from 'immutable';
 
-var map1 = Map({a: 1, b: 2});
-var map2 = map1.set('b', 10);
 
 var arr = Array(9000000).fill(0);
 //var start = performance.now()

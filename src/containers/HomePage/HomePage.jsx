@@ -25,7 +25,7 @@ export  class HomePage extends React.Component {
     this.props.addToCart('Ukrainian salo 5kg',5,1000)
   }
   render() {
-    
+
     var {cart}=this.props.cart.cart;
     var result=cart.map((elem,index)=>{
       return (

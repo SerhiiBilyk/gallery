@@ -20,7 +20,6 @@ describe('Actions::addToCart', () => {
         quantity: 5,
         unitCost: 1000
       }
-
     }
     expect(addToCart('Ukrainian salo 5kg',5,1000)).toEqual(expected)
   });

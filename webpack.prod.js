@@ -9,10 +9,15 @@ const webpack = require('webpack');
 var APP_DIR = path.resolve(__dirname, './src');
 module.exports = merge(common, {
   devtool: 'cheap-module-source-map',
-
+  "resolve": {
+     "alias": {
+       "react": "preact-compat",
+       "react-dom": "preact-compat"
+     }
+   },
   entry: {
 
-    common: ['react', 'react-dom','immutable']
+    common: ['react', 'react-dom']
 
   },
   output: {
@@ -30,7 +35,7 @@ module.exports = merge(common, {
       }
     }),
 
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
     new CompressionPlugin({asset: "[path].gz[query]", algorithm: "gzip", test: /\.js$|\.css$|\.html$/, threshold: 10240, minRatio: 0.8}),
 
     new OptimizeCssAssetsPlugin({
